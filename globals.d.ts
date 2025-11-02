@@ -1,0 +1,1 @@
+Add: declare module "*.css";
