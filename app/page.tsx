@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { AllPokemonQueryResult } from "@/types/AllPokemonQueryResult";
+import { PokemonCardData } from "@/types/PokemonCardData";
+import { PokeCard } from "@/components/PokeCard";
 
 /* To do list:
 
@@ -8,24 +11,13 @@ import Image from "next/image";
 
 */
 
-type PokemonQueryRes = {
-  name: string;
-  url: string;
-};
-
-type PokemonCardData = {
-  name: string;
-  id: string;
-  sprite: string;
-};
-
 async function getAllPokemon(): Promise<PokemonCardData[]> {
   try {
     /* Initial fetching of the pokemon */
     const pokeURL = "https://pokeapi.co/api/v2/pokemon?limit=151&offset=0";
     const res = await fetch(pokeURL);
 
-    const pokeData: { results: PokemonQueryRes[] } = await res.json();
+    const pokeData: { results: AllPokemonQueryResult[] } = await res.json();
     const pokeObjects = pokeData.results;
 
     /* Setup of the array of promises */
@@ -44,7 +36,6 @@ async function getAllPokemon(): Promise<PokemonCardData[]> {
         sprite: detail.sprites.front_default,
       })
     );
-    console.log(finalPokeData);
     return finalPokeData;
   } catch (e) {
     console.error("Failed to fetch Pokemon data", e);
@@ -57,7 +48,16 @@ export default async function Home() {
 
   return (
     <div>
-      <h2>Pokemon List</h2>
+      <div className=" w-full h-full flex flex-wrap gap-10">
+        {pokemonData.map((pokemon) => (
+          <PokeCard
+            key={pokemon.id}
+            name={pokemon.name}
+            id={pokemon.id}
+            sprite={pokemon.sprite}
+          />
+        ))}
+      </div>
     </div>
   );
 }
