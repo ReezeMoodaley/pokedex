@@ -4,8 +4,6 @@ import BattleBackgroundLarge from "@/src/images/BattleBackgrounds/BattleBackgrou
 import { PokemonCardData } from "@/types/PokemonCardData";
 
 export const PokeCard = (pokemon: PokemonCardData) => {
-  console.log(pokemon);
-
   function capatlizeFirstletter(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -32,14 +30,14 @@ export const PokeCard = (pokemon: PokemonCardData) => {
           {capatlizeFirstletter(pokemon.name)}
         </div>
         <div className="flex flex-col justify-center items-center w-full">
-          Test 2
+          Poke Types
         </div>
         <div className="flex flex-col  items-center w-full">
           <div className=" bg-white rounded-full px-2">#{pokemon.id}</div>
         </div>
-        <div>Test 3</div>
+        <div>No. Evos</div>
       </div>
-      <div className="mx-auto">{pokemon.id}</div>
+      <div className="mx-auto"></div>
     </div>
   );
 };

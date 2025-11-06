@@ -11,6 +11,8 @@ import { PokeCard } from "@/components/PokeCard";
 
 */
 
+/* Need to get the type information */
+
 async function getAllPokemon(): Promise<PokemonCardData[]> {
   try {
     /* Initial fetching of the pokemon */
