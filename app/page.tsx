@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { AllPokemonQueryResult } from "@/types/AllPokemonQueryResult";
+import { PokemonType, PokemonTypeObject } from "@/types/PokemonTypes";
 import { PokemonCardData } from "@/types/PokemonCardData";
 import { PokeCard } from "@/components/PokeCard";
 
 /* To do list:
 
-  -> Fetch data from pokeAPI 
-  -> Sort Data from PokeAPI
-  -> Display Data from PokeAPI
+  Adjust the Fetch API request, we need to pull the types information as well 
 
 */
 
@@ -36,8 +35,11 @@ async function getAllPokemon(): Promise<PokemonCardData[]> {
         name: pokeDetails[index].name,
         id: pokeDetails[index].id,
         sprite: detail.sprites.front_default,
+        types: detail.types.map((pokeType: PokemonTypeObject) => pokeType.type),
       })
     );
+
+    console.log(finalPokeData);
     return finalPokeData;
   } catch (e) {
     console.error("Failed to fetch Pokemon data", e);
@@ -57,6 +59,7 @@ export default async function Home() {
             name={pokemon.name}
             id={pokemon.id}
             sprite={pokemon.sprite}
+            types={pokemon.types}
           />
         ))}
       </div>
